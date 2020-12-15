@@ -519,6 +519,8 @@ upgrade_start_routine() {
         for version_step in "${available_versions[@]}"
         do
             if [ $(check_version $VERSION) -lt $(check_version "$version_step") ]; then
+                echo "Version: $VERSION"
+                echo "Version step: $version_step"
                 upgrade_step_message
                 source $HESTIA/install/upgrade/versions/$version_step.sh
             fi
@@ -526,6 +528,9 @@ upgrade_start_routine() {
         upgrade_set_version $VERSION
         upgrade_refresh_config
     else
+        echo "Version: $VERSION"
+        echo "Version step: $version_step"
+        echo "Latest version: $latest_version"
         echo ""
         echo "[ ! ] The latest version of Hestia Control Panel is already installed."
         echo "      Verifying configuration..."
